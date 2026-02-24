@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+html {
+  /* This ensures all anchor link clicks scroll smoothly */
+  scroll-behavior: smooth;
+}
+
+@theme {
+  --animate-border-spin: border-spin 2s linear infinite;
+
+  @keyframes border-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@theme {
+  --perspective-1000: 1000px;
+}
+@theme {
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px); /* Moves up 15 pixels */
+    }
+  }
+}
