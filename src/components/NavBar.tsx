@@ -3,6 +3,11 @@ import logo from "../assests/logo.png";
 import { HiX } from "react-icons/hi";
 import { IoMenuSharp } from "react-icons/io5";
 
+interface NavBarProps {
+  isOpen: boolean;
+  toggle: () => void;
+}
+
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
@@ -11,7 +16,7 @@ const NAV_ITEMS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const NavBar = ({ isOpen, toggle }) => {
+const NavBar: React.FC<NavBarProps> = ({ isOpen, toggle }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
