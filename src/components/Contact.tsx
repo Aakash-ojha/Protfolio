@@ -1,15 +1,20 @@
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 import emailjs from "@emailjs/browser";
 import { SiGithub, SiLinkedin, SiGmail } from "react-icons/si";
 import { RiTwitterXLine } from "react-icons/ri";
 
 const Contact = () => {
+  const [loading, setLoading] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const form = useRef<HTMLFormElement>(null);
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!form.current) return;
+
+    setLoading(true);
+    toast.loading("Sending message...", { id: "sending" });
 
     emailjs
       .sendForm(
@@ -21,12 +26,18 @@ const Contact = () => {
       .then(
         () => {
           setMessageSent(true);
+          toast.success("Message sent successfully!", { id: "sending" });
           console.log("SUCCESS!");
+          setLoading(false);
           form.current?.reset();
           setTimeout(() => setMessageSent(false), 5000);
         },
         (error) => {
           console.log("FAILED...", error.text);
+          toast.error("Failed to send message. Please try again.", {
+            id: "sending",
+          });
+          setLoading(false);
         },
       );
   };
@@ -122,19 +133,14 @@ const Contact = () => {
 
             <button
               type="submit"
+              disabled={loading}
               className="
                 w-full py-4 bg-orange-500 hover:bg-orange-600 text-black font-bold rounded-xl 
                 transition-all duration-300 transform active:scale-95
               "
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </button>
-
-            {messageSent && (
-              <p className="text-green-500 font-medium text-center mt-2">
-                Message sent successfully!
-              </p>
-            )}
           </div>
         </form>
       </div>
