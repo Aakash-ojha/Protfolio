@@ -23,9 +23,12 @@ const Home = () => {
       </p>
       <div className=" mt-15 relative overflow-hidden rounded-2xl p-px w-fit">
         <div className="animate-border-spin absolute inset-[-1000%] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-        <button className="relative flex z-10 h-full w-full items-center justify-center px-8 py-3 rounded-2xl bg-slate-950 hover:bg-slate-900 cursor-pointer transition-colors">
-          Download Resume
-        </button>
+
+        <a href="/Resume_Aakash_Ojha.pdf" download="Resume_Aakash_Ojha.pdf">
+          <button className="relative flex z-10 h-full w-full items-center justify-center px-8 py-3 rounded-2xl bg-slate-950 hover:bg-slate-900 cursor-pointer transition-colors">
+            Download Resume
+          </button>
+        </a>
       </div>
     </div>
   );

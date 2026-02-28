@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import logo from "../assests/logo.png";
 import { HiX } from "react-icons/hi";
 import { IoMenuSharp } from "react-icons/io5";
@@ -11,17 +12,45 @@ const NAV_ITEMS = [
 ];
 
 const NavBar = ({ isOpen, toggle }) => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const controlNavbar = () => {
+      const homeSection = document.getElementById("home");
+      const homeHeight = homeSection?.offsetHeight || 0;
+
+      if (window.scrollY > lastScrollY && window.scrollY > homeHeight) {
+        // Scrolling down AND past Home section
+        setIsVisible(false);
+      } else {
+        // Scrolling up OR still inside Home
+        setIsVisible(true);
+      }
+
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", controlNavbar);
+    return () => window.removeEventListener("scroll", controlNavbar);
+  }, [lastScrollY]);
+
   return (
     <nav
-      className="sticky top-0 z-60 flex justify-between py-1 px-5 items-center border cursor-pointer md:rounded-br-2xl "
+      className={`sticky top-0 z-60 flex justify-between py-1 px-5 items-center border cursor-pointer md:rounded-br-2xl ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       style={{
         backdropFilter: "blur(16px) saturate(180%)",
         backgroundColor: "rgba(17, 25, 40, 0.75)",
         borderColor: "rgba(255, 255, 255, 0.125)",
       }}
     >
-      <div>
-        <img src={logo} className="rounded-full p-3 w-20 h-20 object-contain" />
+      <div className="flex items-center">
+        <img
+          src={logo}
+          className="rounded-full p-3 w-20 h-20 object-contain"
+          alt="Aakash Ojha Logo"
+        />
+        <span className="text-lg font-semibold">Aakash Ojha</span>
       </div>
       {/* //desktop */}
 
