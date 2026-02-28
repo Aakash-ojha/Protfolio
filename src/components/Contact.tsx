@@ -6,7 +6,7 @@ import { RiTwitterXLine } from "react-icons/ri";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
-  const [messageSent, setMessageSent] = useState(false);
+
   const form = useRef<HTMLFormElement>(null);
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,12 +25,10 @@ const Contact = () => {
       )
       .then(
         () => {
-          setMessageSent(true);
           toast.success("Message sent successfully!", { id: "sending" });
           console.log("SUCCESS!");
           setLoading(false);
           form.current?.reset();
-          setTimeout(() => setMessageSent(false), 5000);
         },
         (error) => {
           console.log("FAILED...", error.text);
